@@ -1,7 +1,7 @@
 {
-  "name": "ex1",
+  "name": "express-mongodb-auth-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Educational REST API with Express, MongoDB, and Passport session auth",
   "license": "ISC",
   "scripts": {
     "start": "node src/app.mjs",

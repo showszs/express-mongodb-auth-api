@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nova-store
+    container_name: express-mongodb-auth-api
     ports:
       - '3000:3000'
     env_file:
