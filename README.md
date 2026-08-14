@@ -15,34 +15,7 @@ A REST API built with Express and MongoDB. It provides user registration, sessio
 
 ## Tech Stack
 
-- **Runtime:** Node.js (ES Modules)
-- **Framework:** Express 5
-- **Database:** MongoDB with Mongoose
-- **Auth:** Passport, express-session, bcrypt
-- **Other:** cors, helmet, morgan, cookie-parser, dotenv
-
-## Project Structure
-
-```
-src/
-├── app.mjs              # Application entry point
-├── db.mjs               # MongoDB connection
-├── env.mjs              # Environment variable loader
-├── config/              # Passport, CORS, session, DB config
-├── controllers/         # Route handlers
-├── middleware/          # Error handling
-├── models/              # Mongoose schemas
-└── routes/              # API routes
-```
-
-## Prerequisites
-
-- Node.js 18+
-- MongoDB instance (local or remote, e.g. MongoDB Atlas)
-- npm
-
-
-## Local Setup
+**Requirements:** Node.js 18+, MongoDB, npm
 
 1. Install dependencies:
 
@@ -50,121 +23,49 @@ src/
    npm install
    ```
 
-2. Start the development server:
+2. Create a `.env` file in the project root (do not commit it):
+
+   ```env
+   MONGODB_URI=
+   DB_NAME=
+   SECRET_KEY=
+   PORT=3000
+   ```
+
+3. Run the server:
 
    ```bash
    npm run dev
    ```
 
-   The server runs on `3000 Port`.
-
 ## Docker
-
-Run the app in a container:
 
 ```bash
 docker compose up --build
 ```
 
-The API will be available at `3000 Port`. 
+## API
 
-## API Endpoints
+| Method | Endpoint            | Description              |
+| ------ | ------------------- | ------------------------ |
+| POST   | `/registration`     | Register and start session |
+| POST   | `/login`            | Log in                   |
+| POST   | `/logout`           | Log out                  |
+| GET    | `/me`               | Current auth status      |
+| GET    | `/profiles`         | List users               |
+| DELETE | `/profiles/:userId` | Delete user by ID        |
 
-All routes are prefixed with the server base URL.
+Request bodies for `/registration` and `/login`: JSON with `login`, `password`; registration also requires `email`.
 
-### Authentication
+## Configuration
 
-| Method | Endpoint         | Description                              | Auth required |
-| ------ | ---------------- | ---------------------------------------- | ------------- |
-| POST   | `/registration`  | Register a new user and start a session  | No            |
-| POST   | `/login`         | Log in with credentials                  | No            |
-| POST   | `/logout`        | Destroy the current session              | No            |
-| GET    | `/me`            | Check whether the user is authenticated  | No            |
-
-### Profiles
-
-| Method | Endpoint              | Description                    | Auth required |
-| ------ | --------------------- | ------------------------------ | ------------- |
-| GET    | `/profiles`           | Get a list of users            | No            |
-| DELETE | `/profiles/:userId`   | Delete a user by MongoDB `_id` | No            |
-
-### Request Examples
-
-**Register**
-
-```http
-POST /registration
-Content-Type: application/json
-
-{
-  "login": "johndoe",
-  "password": "securepassword",
-  "email": "john@example.com"
-}
-```
-
-**Login**
-
-```http
-POST /login
-Content-Type: application/json
-
-{
-  "login": "johndoe",
-  "password": "securepassword"
-}
-```
-
-**Get current session status**
-
-```http
-GET /me
-```
-
-**Get all profiles**
-
-```http
-GET /profiles
-```
-
-**Delete a user**
-
-```http
-DELETE /profiles/507f1f77bcf86cd799439011
-```
-
-### Response Examples
-
-```json
-// POST /registration — 201
-{ "message": "User registered successfully" }
-
-// POST /login — 200
-{ "message": "Login successful" }
-
-// GET /me — 200 (authenticated)
-{ "message": "User is authenticated" }
-
-// GET /me — 401 (not authenticated)
-{ "message": "Not authenticated" }
-
-// GET /profiles — 200
-[
-  { "_id": "...", "login": "johndoe", "email": "john@example.com" }
-]
-```
-
-## CORS
-
-The API accepts requests from `http://localhost:5173` with credentials enabled. Update `src/config/cors.mjs` if your frontend runs on a different origin.
+- **CORS** — allowed origins in `src/config/cors.mjs`
+- **Session** — secret and cookie options in `src/config/session.mjs`
+- **Database** — connection settings in `src/config/dbConfig.mjs`
 
 ## Scripts
 
-| Command       | Description                          |
-| ------------- | ------------------------------------ |
-| `npm start`   | Start the server                     |
-| `npm run dev` | Start with nodemon (auto-reload)     |
-
-## License
-
-ISC
+| Command       | Description              |
+| ------------- | ------------------------ |
+| `npm start`   | Start server             |
+| `npm run dev` | Dev mode with nodemon    |
