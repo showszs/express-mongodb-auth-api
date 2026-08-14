@@ -23,7 +23,7 @@ A REST API built with Express and MongoDB. It provides user registration, sessio
    npm install
    ```
 
-2. Create a `.env` file in the project root (do not commit it):
+2. Create a `.env` file in the project root:
 
    ```env
    MONGODB_URI=
