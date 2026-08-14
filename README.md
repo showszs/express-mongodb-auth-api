@@ -15,7 +15,25 @@ A REST API built with Express and MongoDB. It provides user registration, sessio
 
 ## Tech Stack
 
-**Requirements:** Node.js 18+, MongoDB, npm
+- **Runtime:** Node.js (ES Modules)
+- **Framework:** Express 5
+- **Database:** MongoDB with Mongoose
+- **Auth:** Passport, express-session, bcrypt
+- **Other:** cors, helmet, morgan, cookie-parser, dotenv
+
+## Project Structure
+
+```
+src/
+├── app.mjs              # Application entry point
+├── db.mjs               # MongoDB connection
+├── env.mjs              # Environment variable loader
+├── config/              # Passport, CORS, session, DB config
+├── controllers/         # Route handlers
+├── middleware/          # Error handling
+├── models/              # Mongoose schemas
+└── routes/              # API routes
+```
 
 1. Install dependencies:
 
@@ -46,14 +64,14 @@ docker compose up --build
 
 ## API
 
-| Method | Endpoint            | Description              |
-| ------ | ------------------- | ------------------------ |
+| Method | Endpoint            | Description                |
+| ------ | ------------------- | -------------------------- |
 | POST   | `/registration`     | Register and start session |
-| POST   | `/login`            | Log in                   |
-| POST   | `/logout`           | Log out                  |
-| GET    | `/me`               | Current auth status      |
-| GET    | `/profiles`         | List users               |
-| DELETE | `/profiles/:userId` | Delete user by ID        |
+| POST   | `/login`            | Log in                     |
+| POST   | `/logout`           | Log out                    |
+| GET    | `/me`               | Current auth status        |
+| GET    | `/profiles`         | List users                 |
+| DELETE | `/profiles/:userId` | Delete user by ID          |
 
 Request bodies for `/registration` and `/login`: JSON with `login`, `password`; registration also requires `email`.
 
@@ -65,7 +83,7 @@ Request bodies for `/registration` and `/login`: JSON with `login`, `password`; 
 
 ## Scripts
 
-| Command       | Description              |
-| ------------- | ------------------------ |
-| `npm start`   | Start server             |
-| `npm run dev` | Dev mode with nodemon    |
+| Command       | Description           |
+| ------------- | --------------------- |
+| `npm start`   | Start server          |
+| `npm run dev` | Dev mode with nodemon |
